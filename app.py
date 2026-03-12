@@ -16,16 +16,18 @@ def login():
 
     if request.method == "POST":
 
+        # get real client IP (first IP only)
         ip = request.headers.get("X-Forwarded-For", request.remote_addr)
+        ip = ip.split(",")[0].strip()
 
-        username = request.form.get("username", "").strip()
-        password = request.form.get("password", "").strip()
+        username = request.form.get("username","").strip()
+        password = request.form.get("password","").strip()
 
-        # create attempt counter for this IP
+        # initialize counter
         if ip not in attempts:
             attempts[ip] = 0
 
-        # correct login
+        # success login
         if username == "admin" and password == "1234":
             attempts[ip] = 0
             return "Login Successful"
@@ -39,15 +41,15 @@ def login():
         except:
             pass
 
-        if attempts[ip] == 3:
+        # brute force detection
+        if attempts[ip] >= 3:
             attacks += 1
             attempts[ip] = 0
             return "⚠ Brute Force Attack Detected"
 
-        return "Wrong Password"
+        return f"Wrong Password (Attempt {attempts[ip]}/3)"
 
     return render_template("login.html")
-
 
 @app.route('/phishing', methods=['GET','POST'])
 def phishing():

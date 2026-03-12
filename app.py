@@ -1,18 +1,10 @@
-from flask import Flask, render_template, request
-
-app = Flask(__name__)
-
-attempts = {}
-total_attempts = 0
-attacks = 0
-phishing_checks = 0
-
-
 @app.route('/', methods=['GET','POST'])
 def login():
 
     global attacks
     global total_attempts
+
+    message = ""
 
     if request.method == "POST":
 
@@ -27,7 +19,11 @@ def login():
 
         if username == "admin" and password == "1234":
             attempts[ip] = 0
-            return "Login Successful"
+            return render_template("dashboard.html",
+                                   attempts=total_attempts,
+                                   attacks=attacks,
+                                   phishing=phishing_checks,
+                                   ip_logs="")
 
         attempts[ip] += 1
         total_attempts += 1
@@ -41,11 +37,11 @@ def login():
         if attempts[ip] >= 3:
             attacks += 1
             attempts[ip] = 0
-            return "⚠ Brute Force Attack Detected"
+            message = "⚠ Brute Force Attack Detected"
+        else:
+            message = f"Wrong Password (Attempt {attempts[ip]}/3)"
 
-        return f"Wrong Password (Attempt {attempts[ip]}/3)"
-
-    return render_template("login.html")
+    return render_template("login.html", message=message)
 
 
 @app.route('/phishing', methods=['GET','POST'])

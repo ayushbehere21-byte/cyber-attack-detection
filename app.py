@@ -21,28 +21,30 @@ def login():
         username = request.form.get("username", "").strip()
         password = request.form.get("password", "").strip()
 
+        # create attempt counter for this IP
         if ip not in attempts:
             attempts[ip] = 0
 
+        # correct login
         if username == "admin" and password == "1234":
             attempts[ip] = 0
             return "Login Successful"
 
-        else:
-            attempts[ip] += 1
+        # wrong login
+        attempts[ip] += 1
 
-            try:
-                with open("attack_log.txt","a") as file:
-                    file.write(ip + "\n")
-            except:
-                pass
+        try:
+            with open("attack_log.txt","a") as file:
+                file.write(ip + "\n")
+        except:
+            pass
 
-            if attempts[ip] >= 3:
-                attacks += 1
-                attempts[ip] = 0   # reset attempts after detection
-                return "⚠ Brute Force Attack Detected"
+        if attempts[ip] == 3:
+            attacks += 1
+            attempts[ip] = 0
+            return "⚠ Brute Force Attack Detected"
 
-            return "Wrong Password"
+        return "Wrong Password"
 
     return render_template("login.html")
 

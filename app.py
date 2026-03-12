@@ -3,7 +3,8 @@ import os
 
 app = Flask(__name__)
 
-attempts = 0
+# Track attempts per IP
+attempts = {}
 attacks = 0
 phishing_checks = 0
 
@@ -11,27 +12,32 @@ phishing_checks = 0
 @app.route('/', methods=['GET','POST'])
 def login():
 
-    global attempts, attacks
+    global attacks
 
     if request.method == "POST":
 
         username = request.form["username"]
         password = request.form["password"]
 
+        # Get real client IP
+        ip = request.headers.get("X-Forwarded-For", request.remote_addr)
+
+        # Initialize counter for this IP
+        if ip not in attempts:
+            attempts[ip] = 0
+
         if username == "admin" and password == "1234":
-            attempts = 0
+            attempts[ip] = 0
             return "Login Successful"
 
         else:
+            attempts[ip] += 1
 
-            attempts += 1
-
-            ip = request.headers.get("X-Forwarded-For", request.remote_addr)
-
+            # Log attacker IP
             with open("attack_log.txt","a") as file:
                 file.write(ip + "\n")
 
-            if attempts >= 3:
+            if attempts[ip] >= 3:
                 attacks += 1
                 return "⚠ Brute Force Attack Detected"
 
@@ -50,7 +56,6 @@ def phishing():
     if request.method == "POST":
 
         phishing_checks += 1
-
         url = request.form["url"]
 
         suspicious_words = ["login","verify","bank","secure","update"]
@@ -76,7 +81,7 @@ def dashboard():
 
     return render_template(
         "dashboard.html",
-        attempts=attempts,
+        attempts=len(attempts),
         attacks=attacks,
         phishing=phishing_checks,
         ip_logs=ip_logs
@@ -87,8 +92,6 @@ def dashboard():
 def test():
     return "Test Page Working"
 
-
-import os
 
 if __name__ == "__main__":
     port = int(os.environ.get("PORT", 5000))

@@ -8,7 +8,6 @@ attempts = {}
 attacks = 0
 phishing_checks = 0
 
-
 @app.route('/', methods=['GET','POST'])
 def login():
 
@@ -16,50 +15,28 @@ def login():
 
     if request.method == "POST":
 
-        # get real client IP (first IP only)
         ip = request.headers.get("X-Forwarded-For", request.remote_addr)
         ip = ip.split(",")[0].strip()
 
         username = request.form.get("username","").strip()
         password = request.form.get("password","").strip()
 
-        # initialize counter
         if ip not in attempts:
             attempts[ip] = 0
 
-        # success login
         if username == "admin" and password == "1234":
             attempts[ip] = 0
             return "Login Successful"
 
-        # wrong login
-        attempts[ip] += 1
+        else:
+            attempts[ip] += 1
 
-        try:
-            with open("attack_log.txt","a") as file:
-                file.write(ip + "\n")
-        except:
-            pass
+            if attempts[ip] >= 3:
+                attacks += 1
+                attempts[ip] = 0
+                return "⚠ Brute Force Attack Detected"
 
-        # brute force detection
-       if attempts[ip] >= 3:
-    attempts[ip] = 0
-
-    # increase attack counter in file
-    try:
-        with open("attack_count.txt", "r") as f:
-            count = int(f.read().strip())
-    except:
-        count = 0
-
-    count += 1
-
-    with open("attack_count.txt", "w") as f:
-        f.write(str(count))
-
-    return "⚠ Brute Force Attack Detected"
-
-        return f"Wrong Password (Attempt {attempts[ip]}/3)"
+            return f"Wrong Password (Attempt {attempts[ip]}/3)"
 
     return render_template("login.html")
 

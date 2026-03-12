@@ -1,4 +1,5 @@
 from flask import Flask, render_template, request
+import requests
 
 app = Flask(__name__)
 
@@ -6,6 +7,18 @@ attempts = {}
 total_attempts = 0
 attacks = 0
 phishing_checks = 0
+
+
+# IP Location function
+def get_location(ip):
+    try:
+        response = requests.get(f"http://ip-api.com/json/{ip}")
+        data = response.json()
+        country = data.get("country", "Unknown")
+        city = data.get("city", "")
+        return f"{city}, {country}"
+    except:
+        return "Unknown Location"
 
 
 @app.route('/', methods=['GET','POST'])
@@ -49,9 +62,12 @@ def login():
         attempts[ip] += 1
         total_attempts += 1
 
+        # detect location
+        location = get_location(ip)
+
         try:
             with open("attack_log.txt","a") as file:
-                file.write(ip + "\n")
+                file.write(ip + " - " + location + "\n")
         except:
             pass
 

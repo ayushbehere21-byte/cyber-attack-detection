@@ -11,3 +11,9 @@ Password:<br>
 <input type="submit" value="Login">
 
 </form>
+
+{% if message %}
+<p style="color:red; font-weight:bold; margin-top:10px;">
+{{ message }}
+</p>
+{% endif %}

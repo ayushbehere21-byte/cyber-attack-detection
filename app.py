@@ -17,14 +17,15 @@ def login():
         username = request.form["username"]
         password = request.form["password"]
 
-        attempts += 1
-
         if username == "admin" and password == "1234":
+            attempts = 0
             return "Login Successful"
 
         else:
 
-            ip = request.remote_addr
+            attempts += 1
+
+            ip = request.headers.get("X-Forwarded-For", request.remote_addr)
 
             with open("attack_log.txt","a") as file:
                 file.write(ip + "\n")

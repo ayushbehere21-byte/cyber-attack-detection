@@ -1,17 +1,18 @@
 from flask import Flask, render_template, request
-import os
 
 app = Flask(__name__)
 
-# store attempts per IP
 attempts = {}
+total_attempts = 0
 attacks = 0
 phishing_checks = 0
+
 
 @app.route('/', methods=['GET','POST'])
 def login():
 
     global attacks
+    global total_attempts
 
     if request.method == "POST":
 
@@ -28,17 +29,24 @@ def login():
             attempts[ip] = 0
             return "Login Successful"
 
-        else:
-            attempts[ip] += 1
+        attempts[ip] += 1
+        total_attempts += 1
 
-            if attempts[ip] >= 3:
-                attacks += 1
-                attempts[ip] = 0
-                return "⚠ Brute Force Attack Detected"
+        try:
+            with open("attack_log.txt","a") as file:
+                file.write(ip + "\n")
+        except:
+            pass
 
-            return f"Wrong Password (Attempt {attempts[ip]}/3)"
+        if attempts[ip] >= 3:
+            attacks += 1
+            attempts[ip] = 0
+            return "⚠ Brute Force Attack Detected"
+
+        return f"Wrong Password (Attempt {attempts[ip]}/3)"
 
     return render_template("login.html")
+
 
 @app.route('/phishing', methods=['GET','POST'])
 def phishing():
@@ -80,5 +88,4 @@ def dashboard():
         attacks=attacks,
         phishing=phishing_checks,
         ip_logs=ip_logs
-    )
     )

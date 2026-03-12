@@ -42,10 +42,22 @@ def login():
             pass
 
         # brute force detection
-        if attempts[ip] >= 3:
-            attacks += 1
-            attempts[ip] = 0
-            return "⚠ Brute Force Attack Detected"
+       if attempts[ip] >= 3:
+    attempts[ip] = 0
+
+    # increase attack counter in file
+    try:
+        with open("attack_count.txt", "r") as f:
+            count = int(f.read().strip())
+    except:
+        count = 0
+
+    count += 1
+
+    with open("attack_count.txt", "w") as f:
+        f.write(str(count))
+
+    return "⚠ Brute Force Attack Detected"
 
         return f"Wrong Password (Attempt {attempts[ip]}/3)"
 
@@ -85,10 +97,16 @@ def dashboard():
     except:
         ip_logs = "No attack logs yet"
 
+    try:
+        with open("attack_count.txt","r") as f:
+            attack_count = int(f.read())
+    except:
+        attack_count = 0
+
     return render_template(
         "dashboard.html",
         attempts=sum(attempts.values()),
-        attacks=attacks,
+        attacks=attack_count,
         phishing=phishing_checks,
         ip_logs=ip_logs
     )

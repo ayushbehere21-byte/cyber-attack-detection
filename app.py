@@ -87,7 +87,7 @@ def dashboard():
 
     return render_template(
         "dashboard.html",
-        attempts=len(attempts),
+        attempts=sum(attempts.values()),
         attacks=attacks,
         phishing=phishing_checks,
         ip_logs=ip_logs

@@ -74,16 +74,11 @@ def dashboard():
     except:
         ip_logs = "No attack logs yet"
 
-    try:
-        with open("attack_count.txt","r") as f:
-            attack_count = int(f.read())
-    except:
-        attack_count = 0
-
     return render_template(
         "dashboard.html",
-        attempts=sum(attempts.values()),
-        attacks=attack_count,
+        attempts=total_attempts,
+        attacks=attacks,
         phishing=phishing_checks,
         ip_logs=ip_logs
+    )
     )

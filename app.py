@@ -16,10 +16,10 @@ def login():
 
     if request.method == "POST":
 
-        username = request.form["username"]
-        password = request.form["password"]
-
         ip = request.headers.get("X-Forwarded-For", request.remote_addr)
+
+        username = request.form.get("username", "").strip()
+        password = request.form.get("password", "").strip()
 
         if ip not in attempts:
             attempts[ip] = 0
@@ -39,6 +39,7 @@ def login():
 
             if attempts[ip] >= 3:
                 attacks += 1
+                attempts[ip] = 0   # reset attempts after detection
                 return "⚠ Brute Force Attack Detected"
 
             return "Wrong Password"
@@ -57,7 +58,7 @@ def phishing():
 
         phishing_checks += 1
 
-        url = request.form["url"]
+        url = request.form.get("url","")
 
         suspicious_words = ["login","verify","bank","secure","update"]
 

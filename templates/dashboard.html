@@ -122,6 +122,36 @@ No attacker IP detected yet
 
 </div>
 
+  <canvas id="attackChart"
+        data-attempts="{{ attempts }}"
+        data-attacks="{{ attacks }}"
+        data-phishing="{{ phishing }}">
+</canvas>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+<script>
+
+const canvas = document.getElementById('attackChart');
+
+const loginAttempts = parseInt(canvas.dataset.attempts) || 0;
+const attackCount = parseInt(canvas.dataset.attacks) || 0;
+const phishingCount = parseInt(canvas.dataset.phishing) || 0;
+
+new Chart(canvas, {
+    type: 'bar',
+    data: {
+        labels: ['Login Attempts', 'Detected Attacks', 'Phishing Checks'],
+        datasets: [{
+            label: 'Security Activity',
+            data: [loginAttempts, attackCount, phishingCount],
+            borderWidth: 1
+        }]
+    }
+});
+
+</script>
+
 <div class="footer">
 Real-Time Cyber Security Monitoring System
 </div>

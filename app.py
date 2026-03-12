@@ -1,3 +1,13 @@
+from flask import Flask, render_template, request
+
+app = Flask(__name__)
+
+attempts = {}
+total_attempts = 0
+attacks = 0
+phishing_checks = 0
+
+
 @app.route('/', methods=['GET','POST'])
 def login():
 
@@ -19,11 +29,13 @@ def login():
 
         if username == "admin" and password == "1234":
             attempts[ip] = 0
-            return render_template("dashboard.html",
-                                   attempts=total_attempts,
-                                   attacks=attacks,
-                                   phishing=phishing_checks,
-                                   ip_logs="")
+            return render_template(
+                "dashboard.html",
+                attempts=total_attempts,
+                attacks=attacks,
+                phishing=phishing_checks,
+                ip_logs=""
+            )
 
         attempts[ip] += 1
         total_attempts += 1

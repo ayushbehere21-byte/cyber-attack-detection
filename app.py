@@ -27,16 +27,25 @@ def login():
         if ip not in attempts:
             attempts[ip] = 0
 
+        # Correct login
         if username == "admin" and password == "1234":
             attempts[ip] = 0
+
+            try:
+                with open("attack_log.txt","r") as file:
+                    ip_logs = file.read()
+            except:
+                ip_logs = "No attack logs yet"
+
             return render_template(
                 "dashboard.html",
                 attempts=total_attempts,
                 attacks=attacks,
                 phishing=phishing_checks,
-                ip_logs=""
+                ip_logs=ip_logs
             )
 
+        # Wrong login
         attempts[ip] += 1
         total_attempts += 1
 

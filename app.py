@@ -3,7 +3,7 @@ import os
 
 app = Flask(__name__)
 
-# Track attempts per IP
+# store attempts per IP
 attempts = {}
 attacks = 0
 phishing_checks = 0
@@ -19,10 +19,8 @@ def login():
         username = request.form["username"]
         password = request.form["password"]
 
-        # Get real client IP
         ip = request.headers.get("X-Forwarded-For", request.remote_addr)
 
-        # Initialize counter for this IP
         if ip not in attempts:
             attempts[ip] = 0
 
@@ -33,9 +31,11 @@ def login():
         else:
             attempts[ip] += 1
 
-            # Log attacker IP
-            with open("attack_log.txt","a") as file:
-                file.write(ip + "\n")
+            try:
+                with open("attack_log.txt","a") as file:
+                    file.write(ip + "\n")
+            except:
+                pass
 
             if attempts[ip] >= 3:
                 attacks += 1
@@ -56,6 +56,7 @@ def phishing():
     if request.method == "POST":
 
         phishing_checks += 1
+
         url = request.form["url"]
 
         suspicious_words = ["login","verify","bank","secure","update"]
@@ -86,12 +87,3 @@ def dashboard():
         phishing=phishing_checks,
         ip_logs=ip_logs
     )
-
-
-@app.route('/test')
-def test():
-    return "Test Page Working"
-
-
-if __name__ == "__main__":
-    app.run()

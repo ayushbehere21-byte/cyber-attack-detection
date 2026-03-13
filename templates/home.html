@@ -18,17 +18,24 @@ margin:0;
 .topbar{
 display:flex;
 align-items:center;
-padding:15px;
+padding:15px 25px;
 background:#020617;
 border-bottom:1px solid #1e293b;
 }
 
 .menu-icon{
-font-size:24px;
+font-size:26px;
 cursor:pointer;
 }
 
-/* SIDEBAR MENU */
+.title{
+margin-left:20px;
+font-size:20px;
+font-weight:bold;
+color:#38bdf8;
+}
+
+/* SIDEBAR */
 
 .sidebar{
 height:100%;
@@ -62,12 +69,13 @@ padding:60px 20px 30px 20px;
 }
 
 .hero h1{
-font-size:38px;
+font-size:36px;
 }
 
 .tagline{
 color:#94a3b8;
 margin-top:10px;
+font-size:18px;
 }
 
 /* INFO BOX */
@@ -84,7 +92,7 @@ color:#cbd5f5;
 line-height:1.6;
 }
 
-/* CARDS */
+/* SECTIONS */
 
 .section{
 margin-top:60px;
@@ -143,7 +151,7 @@ document.getElementById("menu").style.width="0";
 
 <div id="menu" class="sidebar">
 
-<a href="javascript:void(0)" onclick="closeMenu()">Close ✖</a>
+<a href="javascript:void(0)" onclick="closeMenu()">✖ Close</a>
 
 <a href="/">Home</a>
 <a href="/login">Login Test</a>
@@ -157,6 +165,10 @@ document.getElementById("menu").style.width="0";
 <div class="topbar">
 
 <span class="menu-icon" onclick="openMenu()">☰</span>
+
+<span class="title">
+AI Cyber Attack Detection System
+</span>
 
 </div>
 
@@ -206,6 +218,33 @@ detect cyber attacks, and analyze attacker behavior in real time.
 <div class="card">
 <h3>Threat Monitoring</h3>
 <p>Displays login attempts and attacker IP logs.</p>
+</div>
+
+</div>
+
+</div>
+
+<!-- USE CASES -->
+
+<div class="section">
+
+<h2>Where It Can Be Used</h2>
+
+<div class="cards">
+
+<div class="card">
+<h3>Companies</h3>
+<p>Protect company websites from brute force login attacks.</p>
+</div>
+
+<div class="card">
+<h3>Government Portals</h3>
+<p>Monitor suspicious login activity on public service websites.</p>
+</div>
+
+<div class="card">
+<h3>Cyber Security Teams</h3>
+<p>Analyze attacker IP addresses and monitor cyber threats.</p>
 </div>
 
 </div>

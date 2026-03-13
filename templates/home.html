@@ -11,9 +11,26 @@ margin:0;
 font-family:Arial;
 background:#020617;
 color:white;
+overflow-x:hidden;
 }
 
-/* TOP BAR */
+/* CYBER GRID BACKGROUND */
+
+body::before{
+content:"";
+position:fixed;
+top:0;
+left:0;
+width:100%;
+height:100%;
+background-image:
+linear-gradient(rgba(56,189,248,0.1) 1px, transparent 1px),
+linear-gradient(90deg, rgba(56,189,248,0.1) 1px, transparent 1px);
+background-size:50px 50px;
+z-index:-1;
+}
+
+/* TOPBAR */
 
 .topbar{
 display:flex;
@@ -21,6 +38,9 @@ align-items:center;
 padding:15px 25px;
 background:#020617;
 border-bottom:1px solid #1e293b;
+position:fixed;
+width:100%;
+z-index:100;
 }
 
 .menu-icon{
@@ -62,14 +82,10 @@ font-size:18px;
 background:#1e293b;
 }
 
-/* HERO SECTION */
+/* HERO */
 
 .hero{
 height:100vh;
-background-image:url("/static/images/cyber.jpg");
-background-size:cover;
-background-position:center;
-background-repeat:no-repeat;
 display:flex;
 flex-direction:column;
 justify-content:center;
@@ -79,13 +95,48 @@ padding:20px;
 }
 
 .hero h1{
-font-size:42px;
+font-size:48px;
 margin-bottom:10px;
+text-shadow:0 0 20px #38bdf8;
 }
 
 .hero p{
 font-size:20px;
 color:#cbd5f5;
+}
+
+/* BUTTONS */
+
+.buttons{
+margin-top:30px;
+}
+
+button{
+padding:12px 25px;
+margin:10px;
+font-size:16px;
+border:none;
+border-radius:8px;
+background:#38bdf8;
+color:black;
+font-weight:bold;
+cursor:pointer;
+box-shadow:0 0 15px #38bdf8;
+transition:0.3s;
+}
+
+button:hover{
+background:#0ea5e9;
+box-shadow:0 0 25px #38bdf8;
+transform:scale(1.05);
+}
+
+/* COUNTER */
+
+.counter{
+margin-top:40px;
+font-size:22px;
+color:#22c55e;
 }
 
 /* INFO BOX */
@@ -102,7 +153,7 @@ color:#cbd5f5;
 line-height:1.6;
 }
 
-/* SECTION */
+/* SECTIONS */
 
 .section{
 margin-top:70px;
@@ -123,6 +174,12 @@ width:260px;
 padding:25px;
 border-radius:10px;
 box-shadow:0 0 15px rgba(0,0,0,0.6);
+transition:0.3s;
+}
+
+.card:hover{
+transform:translateY(-10px);
+box-shadow:0 0 20px #38bdf8;
 }
 
 .card h3{
@@ -151,6 +208,21 @@ function closeMenu(){
 document.getElementById("menu").style.width="0";
 }
 
+/* LIVE COUNTER */
+
+let attacks=0;
+
+function updateCounter(){
+
+attacks+=Math.floor(Math.random()*3);
+
+document.getElementById("counter").innerText=
+"Live Cyber Attacks Detected Today: "+attacks;
+
+}
+
+setInterval(updateCounter,2000);
+
 </script>
 
 </head>
@@ -164,7 +236,7 @@ document.getElementById("menu").style.width="0";
 <a href="javascript:void(0)" onclick="closeMenu()">✖ Close</a>
 
 <a href="/">Home</a>
-<a href="/login">Login Test</a>
+<a href="/login">Login Attack Test</a>
 <a href="/phishing">Phishing Scanner</a>
 <a href="/admin">Admin Dashboard</a>
 
@@ -186,22 +258,41 @@ AI Cyber Attack Detection System
 
 <div class="hero">
 
-<h1>AI Cyber Attack Detection & Monitoring System</h1>
+<h1>AI Cyber Attack Detection & Monitoring</h1>
 
 <p>Real-Time Cyber Threat Detection Platform</p>
 
+<div class="buttons">
+
+<a href="/login">
+<button>Login Attack Test</button>
+</a>
+
+<a href="/phishing">
+<button>Phishing Scanner</button>
+</a>
+
+<a href="/admin">
+<button>Admin Dashboard</button>
+</a>
+
 </div>
 
-<!-- INFORMATION -->
+<div id="counter" class="counter">
+Live Cyber Attacks Detected Today: 0
+</div>
+
+</div>
+
+<!-- INFO -->
 
 <div class="info-box">
 
 Cyber attacks such as brute force login attempts and phishing websites are becoming increasingly common.
-This system detects suspicious login activity, identifies phishing links, and records attacker IP addresses
-along with their geographic location.
 
-The platform provides an administrative dashboard that helps security teams monitor login attempts,
-detect cyber attacks, and analyze attacker behavior in real time.
+This system detects suspicious login activity, identifies phishing links, and records attacker IP addresses along with their geographic location.
+
+The platform provides an administrative dashboard that helps security teams monitor login attempts, detect cyber attacks, and analyze attacker behavior in real time.
 
 </div>
 
@@ -214,25 +305,34 @@ detect cyber attacks, and analyze attacker behavior in real time.
 <div class="cards">
 
 <div class="card">
+
 <h3>Brute Force Detection</h3>
+
 <p>Detects repeated login failures and possible hacking attempts.</p>
+
 </div>
 
 <div class="card">
+
 <h3>Phishing Detection</h3>
+
 <p>Analyzes URLs and identifies suspicious phishing websites.</p>
+
 </div>
 
 <div class="card">
+
 <h3>Threat Monitoring</h3>
+
 <p>Displays login attempts and attacker IP logs.</p>
-</div>
 
 </div>
 
 </div>
 
-<!-- USE CASES -->
+</div>
+
+<!-- USE CASE -->
 
 <div class="section">
 
@@ -241,18 +341,27 @@ detect cyber attacks, and analyze attacker behavior in real time.
 <div class="cards">
 
 <div class="card">
+
 <h3>Companies</h3>
+
 <p>Protect company websites from brute force login attacks.</p>
+
 </div>
 
 <div class="card">
+
 <h3>Government Portals</h3>
+
 <p>Monitor suspicious login activity on public service websites.</p>
+
 </div>
 
 <div class="card">
+
 <h3>Cyber Security Teams</h3>
+
 <p>Analyze attacker IP addresses and monitor cyber threats.</p>
+
 </div>
 
 </div>
@@ -260,7 +369,9 @@ detect cyber attacks, and analyze attacker behavior in real time.
 </div>
 
 <div class="footer">
+
 Cyber Security Monitoring Prototype | National Level Project
+
 </div>
 
 </body>

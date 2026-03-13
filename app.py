@@ -78,7 +78,14 @@ def login():
         else:
             message = f"Wrong Password (Attempt {attempts[ip]}/3)"
 
-    return render_template("login.html", message=message)
+    return render_template(
+    "dashboard.html",
+    attempts=total_attempts,
+    attacks=attacks,
+    phishing=phishing_checks,
+    ip_logs="",
+    message=message
+)
 
 
 @app.route('/phishing', methods=['GET','POST'])
@@ -103,7 +110,14 @@ def phishing():
         else:
             result = "✅ Safe Website"
 
-    return render_template("phishing.html", result=result)
+    return render_template(
+    "dashboard.html",
+    attempts=total_attempts,
+    attacks=attacks,
+    phishing=phishing_checks,
+    ip_logs="",
+    result=result
+)
 
 
 @app.route('/dashboard')

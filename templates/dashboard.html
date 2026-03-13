@@ -1,21 +1,21 @@
 <!DOCTYPE html>
 <html>
 <head>
-<title>Cyber Security Dashboard</title>
+
+<title>Cyber Security Monitoring System</title>
 
 <style>
 
 body{
 font-family: Arial;
-background: #020617;
-color: white;
+background:#020617;
+color:white;
 margin:0;
 }
 
 .header{
-background:#020617;
-padding:20px;
 text-align:center;
+padding:20px;
 font-size:28px;
 font-weight:bold;
 border-bottom:1px solid #1e293b;
@@ -25,25 +25,24 @@ border-bottom:1px solid #1e293b;
 display:flex;
 justify-content:center;
 gap:30px;
-margin-top:60px;
+margin-top:40px;
 }
 
 .card{
 background:#0f172a;
-padding:30px;
-width:250px;
+padding:25px;
+width:260px;
 border-radius:12px;
 text-align:center;
 box-shadow:0 0 20px rgba(0,0,0,0.6);
 }
 
-.card h2{
-font-size:18px;
+.card h3{
 margin-bottom:15px;
 }
 
 .number{
-font-size:40px;
+font-size:36px;
 font-weight:bold;
 color:#38bdf8;
 }
@@ -56,27 +55,51 @@ color:#ef4444;
 color:#22c55e;
 }
 
-.ip-section{
-margin-top:60px;
+.section{
+margin-top:50px;
 text-align:center;
+}
+
+form{
+margin-top:15px;
+}
+
+input{
+padding:8px;
+margin:5px;
+border-radius:6px;
+border:none;
+}
+
+button{
+padding:8px 16px;
+border:none;
+border-radius:6px;
+background:#38bdf8;
+color:black;
+font-weight:bold;
+cursor:pointer;
+}
+
+button:hover{
+background:#0ea5e9;
 }
 
 .ip-box{
 background:#0f172a;
-width:400px;
+width:500px;
 margin:auto;
 padding:20px;
 border-radius:10px;
+margin-top:20px;
 box-shadow:0 0 10px rgba(0,0,0,0.5);
-font-family: monospace;
-color:#38bdf8;
 }
 
-.footer{
-text-align:center;
-margin-top:80px;
-font-size:14px;
-color:#94a3b8;
+canvas{
+background:#0f172a;
+padding:20px;
+border-radius:12px;
+margin-top:30px;
 }
 
 </style>
@@ -89,72 +112,135 @@ color:#94a3b8;
 AI Cyber Attack Detection Dashboard
 </div>
 
+<!-- STATS -->
+
 <div class="container">
 
 <div class="card">
-<h2>Total Login Attempts</h2>
+<h3>Total Login Attempts</h3>
 <div class="number">{{ attempts }}</div>
 </div>
 
 <div class="card">
-<h2>Detected Attacks</h2>
+<h3>Detected Attacks</h3>
 <div class="number attack">{{ attacks }}</div>
 </div>
 
 <div class="card">
-<h2>Phishing Checks</h2>
+<h3>Phishing Checks</h3>
 <div class="number phishing">{{ phishing }}</div>
 </div>
 
 </div>
 
-<div class="ip-section">
+<!-- LOGIN ATTACK TEST -->
+
+<div class="section">
+
+<h2>Login Attack Detector</h2>
+
+<form method="POST" action="/">
+
+<input type="text" name="username" placeholder="Username">
+
+<input type="password" name="password" placeholder="Password">
+
+<button type="submit">Login</button>
+
+</form>
+
+{% if message %}
+<p style="color:red">{{ message }}</p>
+{% endif %}
+
+</div>
+
+<!-- PHISHING SCANNER -->
+
+<div class="section">
+
+<h2>Phishing Link Scanner</h2>
+
+<form method="POST" action="/phishing">
+
+<input type="text" name="url" placeholder="Enter Website URL">
+
+<button type="submit">Scan</button>
+
+</form>
+
+{% if result %}
+<p style="color:yellow">{{ result }}</p>
+{% endif %}
+
+</div>
+
+<!-- GRAPH -->
+
+<div class="section">
+
+<h2>Cyber Threat Analytics</h2>
+
+<canvas id="attackChart" width="600" height="300"
+data-attempts="{{ attempts }}"
+data-attacks="{{ attacks }}"
+data-phishing="{{ phishing }}">
+</canvas>
+
+</div>
+
+<!-- IP LOGS -->
+
+<div class="section">
 
 <h2>Recent Attacker IP Logs</h2>
 
 <div class="ip-box">
+
 {% if ip_logs %}
 <pre>{{ ip_logs }}</pre>
 {% else %}
 No attacker IP detected yet
 {% endif %}
-</div>
 
 </div>
 
-  <canvas id="attackChart"
-        data-attempts="{{ attempts }}"
-        data-attacks="{{ attacks }}"
-        data-phishing="{{ phishing }}">
-</canvas>
+</div>
 
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
 <script>
 
-const canvas = document.getElementById('attackChart');
+const canvas = document.getElementById("attackChart");
 
-const loginAttempts = parseInt(canvas.dataset.attempts) || 0;
-const attackCount = parseInt(canvas.dataset.attacks) || 0;
-const phishingCount = parseInt(canvas.dataset.phishing) || 0;
+const attempts = parseInt(canvas.dataset.attempts);
+const attacks = parseInt(canvas.dataset.attacks);
+const phishing = parseInt(canvas.dataset.phishing);
 
 new Chart(canvas, {
-    type: 'bar',
-    data: {
-        labels: ['Login Attempts', 'Detected Attacks', 'Phishing Checks'],
-        datasets: [{
-            label: 'Security Activity',
-            data: [loginAttempts, attackCount, phishingCount],
-            borderWidth: 1
-        }]
-    }
+
+type:'doughnut',
+
+data:{
+labels:['Login Attempts','Detected Attacks','Phishing Checks'],
+
+datasets:[{
+data:[attempts,attacks,phishing],
+
+backgroundColor:[
+'#38bdf8',
+'#ef4444',
+'#22c55e'
+],
+
+borderWidth:2
+}]
+
+}
+
 });
 
 </script>
-
-<div class="footer">
-Real-Time Cyber Security Monitoring System
-</div>
 
 </body>
 </html>

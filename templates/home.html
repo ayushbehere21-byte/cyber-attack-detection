@@ -9,25 +9,20 @@
 body{
 margin:0;
 font-family:Arial;
-background:#020617;
+
+background-image:url("/static/images/cyber.jpg");
+background-size:cover;
+background-position:center;
+background-repeat:no-repeat;
+
 color:white;
-overflow-x:hidden;
 }
 
-/* CYBER GRID BACKGROUND */
+/* DARK OVERLAY */
 
-body::before{
-content:"";
-position:fixed;
-top:0;
-left:0;
-width:100%;
-height:100%;
-background-image:
-linear-gradient(rgba(56,189,248,0.1) 1px, transparent 1px),
-linear-gradient(90deg, rgba(56,189,248,0.1) 1px, transparent 1px);
-background-size:50px 50px;
-z-index:-1;
+.overlay{
+background:rgba(2,6,23,0.85);
+min-height:100vh;
 }
 
 /* TOPBAR */
@@ -95,14 +90,25 @@ padding:20px;
 }
 
 .hero h1{
-font-size:48px;
-margin-bottom:10px;
-text-shadow:0 0 20px #38bdf8;
+font-size:46px;
+color:#38bdf8;
+animation: glow 2s ease-in-out infinite alternate;
 }
 
 .hero p{
 font-size:20px;
 color:#cbd5f5;
+}
+
+/* TITLE GLOW */
+
+@keyframes glow{
+from{
+text-shadow:0 0 10px #38bdf8;
+}
+to{
+text-shadow:0 0 25px #38bdf8,0 0 40px #38bdf8;
+}
 }
 
 /* BUTTONS */
@@ -127,14 +133,14 @@ transition:0.3s;
 
 button:hover{
 background:#0ea5e9;
-box-shadow:0 0 25px #38bdf8;
+box-shadow:0 0 30px #38bdf8;
 transform:scale(1.05);
 }
 
 /* COUNTER */
 
 .counter{
-margin-top:40px;
+margin-top:30px;
 font-size:22px;
 color:#22c55e;
 }
@@ -174,7 +180,7 @@ width:260px;
 padding:25px;
 border-radius:10px;
 box-shadow:0 0 15px rgba(0,0,0,0.6);
-transition:0.3s;
+animation: float 4s ease-in-out infinite;
 }
 
 .card:hover{
@@ -184,6 +190,12 @@ box-shadow:0 0 20px #38bdf8;
 
 .card h3{
 color:#38bdf8;
+}
+
+@keyframes float{
+0%{transform:translateY(0px);}
+50%{transform:translateY(-6px);}
+100%{transform:translateY(0px);}
 }
 
 /* FOOTER */
@@ -208,26 +220,31 @@ function closeMenu(){
 document.getElementById("menu").style.width="0";
 }
 
-/* LIVE COUNTER */
+window.onload=function(){
 
 let attacks=0;
 
-function updateCounter(){
+setInterval(function(){
 
-attacks+=Math.floor(Math.random()*3);
+attacks += Math.floor(Math.random()*2);
 
-document.getElementById("counter").innerText=
-"Live Cyber Attacks Detected Today: "+attacks;
+let counter=document.getElementById("counter");
 
+if(counter){
+counter.innerText="Live Cyber Attacks Detected Today: "+attacks;
 }
 
-setInterval(updateCounter,2000);
+},2000);
+
+}
 
 </script>
 
 </head>
 
 <body>
+
+<div class="overlay">
 
 <!-- SIDEBAR -->
 
@@ -305,27 +322,18 @@ The platform provides an administrative dashboard that helps security teams moni
 <div class="cards">
 
 <div class="card">
-
 <h3>Brute Force Detection</h3>
-
 <p>Detects repeated login failures and possible hacking attempts.</p>
-
 </div>
 
 <div class="card">
-
 <h3>Phishing Detection</h3>
-
 <p>Analyzes URLs and identifies suspicious phishing websites.</p>
-
 </div>
 
 <div class="card">
-
 <h3>Threat Monitoring</h3>
-
 <p>Displays login attempts and attacker IP logs.</p>
-
 </div>
 
 </div>
@@ -341,27 +349,18 @@ The platform provides an administrative dashboard that helps security teams moni
 <div class="cards">
 
 <div class="card">
-
 <h3>Companies</h3>
-
 <p>Protect company websites from brute force login attacks.</p>
-
 </div>
 
 <div class="card">
-
 <h3>Government Portals</h3>
-
 <p>Monitor suspicious login activity on public service websites.</p>
-
 </div>
 
 <div class="card">
-
 <h3>Cyber Security Teams</h3>
-
 <p>Analyze attacker IP addresses and monitor cyber threats.</p>
-
 </div>
 
 </div>
@@ -369,8 +368,8 @@ The platform provides an administrative dashboard that helps security teams moni
 </div>
 
 <div class="footer">
-
 Cyber Security Monitoring Prototype | National Level Project
+</div>
 
 </div>
 

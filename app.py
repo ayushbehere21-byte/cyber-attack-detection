@@ -12,11 +12,16 @@ phishing_checks = 0
 # IP Location function
 def get_location(ip):
     try:
-        response = requests.get(f"http://ip-api.com/json/{ip}")
+        response = requests.get(f"http://ip-api.com/json/{ip}", timeout=3)
         data = response.json()
-        country = data.get("country", "Unknown")
-        city = data.get("city", "")
-        return f"{city}, {country}"
+
+        if data.get("status") == "success":
+            country = data.get("country", "Unknown")
+            city = data.get("city", "")
+            return f"{city}, {country}"
+
+        return "Unknown Location"
+
     except:
         return "Unknown Location"
 

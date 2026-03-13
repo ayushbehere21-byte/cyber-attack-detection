@@ -78,13 +78,19 @@ def login():
         else:
             message = f"Wrong Password (Attempt {attempts[ip]}/3)"
 
-    return render_template(
-    "dashboard.html",
-    attempts=total_attempts,
-    attacks=attacks,
-    phishing=phishing_checks,
-    ip_logs="",
-    message=message
+try:
+    with open("attack_log.txt","r") as file:
+        ip_logs = file.read()
+except:
+    ip_logs = "No attacker IP detected yet"
+
+return render_template(
+"dashboard.html",
+attempts=total_attempts,
+attacks=attacks,
+phishing=phishing_checks,
+ip_logs=ip_logs,
+message=message
 )
 
 
@@ -115,7 +121,11 @@ def phishing():
     attempts=total_attempts,
     attacks=attacks,
     phishing=phishing_checks,
-    ip_logs="",
+    try:
+    with open("attack_log.txt","r") as file:
+        ip_logs = file.read()
+except:
+    ip_logs = "No attacker IP detected yet"
     result=result
 )
 

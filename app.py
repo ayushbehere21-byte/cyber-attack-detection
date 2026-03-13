@@ -55,36 +55,31 @@ def login():
         if ip not in attempts:
             attempts[ip] = 0
 
-        # Correct login
+        # Correct login (dashboard open होणार नाही)
         if username == "admin" and password == "1234":
             attempts[ip] = 0
+            message = "Login Successful"
 
-            return render_template(
-                "dashboard.html",
-                attempts=total_attempts,
-                attacks=attacks,
-                phishing=phishing_checks,
-                ip_logs=read_logs()
-            )
-
-        # Wrong login
-        attempts[ip] += 1
-        total_attempts += 1
-
-        location = get_location(ip)
-
-        try:
-            with open("attack_log.txt","a") as file:
-                file.write(ip + " - " + location + "\n")
-        except:
-            pass
-
-        if attempts[ip] >= 3:
-            attacks += 1
-            attempts[ip] = 0
-            message = "⚠ Brute Force Attack Detected"
         else:
-            message = f"Wrong Password (Attempt {attempts[ip]}/3)"
+
+            # Wrong login
+            attempts[ip] += 1
+            total_attempts += 1
+
+            location = get_location(ip)
+
+            try:
+                with open("attack_log.txt","a") as file:
+                    file.write(ip + " - " + location + "\n")
+            except:
+                pass
+
+            if attempts[ip] >= 3:
+                attacks += 1
+                attempts[ip] = 0
+                message = "⚠ Brute Force Attack Detected"
+            else:
+                message = f"Wrong Password (Attempt {attempts[ip]}/3)"
 
     return render_template("login.html", message=message)
 
@@ -115,7 +110,7 @@ def phishing():
     return render_template("phishing.html", result=result)
 
 
-# DASHBOARD
+# DASHBOARD (Admin साठी)
 @app.route('/dashboard')
 def dashboard():
 

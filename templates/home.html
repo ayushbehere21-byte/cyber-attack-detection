@@ -2,7 +2,7 @@
 <html>
 <head>
 
-<title>AI Cyber Attack Detection System</title>
+<title>Cyber Attack Detection</title>
 
 <style>
 
@@ -13,86 +13,96 @@ color:white;
 margin:0;
 }
 
-/* NAVBAR */
+/* TOP BAR */
 
-.navbar{
+.topbar{
 display:flex;
-justify-content:space-between;
 align-items:center;
-padding:15px 40px;
+padding:15px;
 background:#020617;
 border-bottom:1px solid #1e293b;
 }
 
-.logo{
-font-size:22px;
-font-weight:bold;
-color:#38bdf8;
+.menu-icon{
+font-size:24px;
+cursor:pointer;
 }
 
-.nav-links a{
-margin-left:25px;
+/* SIDEBAR MENU */
+
+.sidebar{
+height:100%;
+width:0;
+position:fixed;
+top:0;
+left:0;
+background:#0f172a;
+overflow-x:hidden;
+transition:0.3s;
+padding-top:60px;
+}
+
+.sidebar a{
+padding:12px 30px;
+display:block;
 color:white;
 text-decoration:none;
-font-size:16px;
+font-size:18px;
 }
 
-.nav-links a:hover{
-color:#38bdf8;
+.sidebar a:hover{
+background:#1e293b;
 }
 
-/* HERO SECTION */
+/* HERO */
 
 .hero{
 text-align:center;
-padding:80px 20px 40px 20px;
+padding:60px 20px 30px 20px;
 }
 
 .hero h1{
-font-size:40px;
+font-size:38px;
 }
 
 .tagline{
 color:#94a3b8;
 margin-top:10px;
-font-size:18px;
 }
 
-/* CONTAINER */
+/* INFO BOX */
 
-.container{
+.info-box{
 width:70%;
 margin:auto;
+background:#0f172a;
+padding:30px;
+border-radius:10px;
 margin-top:30px;
-text-align:center;
-}
-
-/* DESCRIPTION */
-
-.description{
-font-size:18px;
-line-height:1.7;
+box-shadow:0 0 20px rgba(0,0,0,0.5);
 color:#cbd5f5;
+line-height:1.6;
 }
 
 /* CARDS */
 
 .section{
 margin-top:60px;
+text-align:center;
 }
 
-.card-container{
+.cards{
 display:flex;
 justify-content:center;
 gap:30px;
-margin-top:30px;
 flex-wrap:wrap;
+margin-top:30px;
 }
 
 .card{
 background:#0f172a;
+width:250px;
 padding:25px;
-width:260px;
 border-radius:10px;
 box-shadow:0 0 15px rgba(0,0,0,0.6);
 }
@@ -113,24 +123,40 @@ padding-bottom:20px;
 
 </style>
 
+<script>
+
+function openMenu(){
+document.getElementById("menu").style.width="250px";
+}
+
+function closeMenu(){
+document.getElementById("menu").style.width="0";
+}
+
+</script>
+
 </head>
 
 <body>
 
-<!-- NAVBAR -->
+<!-- SIDEBAR -->
 
-<div class="navbar">
+<div id="menu" class="sidebar">
 
-<div class="logo">
-Cyber Attack Detection
-</div>
+<a href="javascript:void(0)" onclick="closeMenu()">Close ✖</a>
 
-<div class="nav-links">
 <a href="/">Home</a>
 <a href="/login">Login Test</a>
 <a href="/phishing">Phishing Scanner</a>
 <a href="/admin">Admin Dashboard</a>
+
 </div>
+
+<!-- TOP BAR -->
+
+<div class="topbar">
+
+<span class="menu-icon" onclick="openMenu()">☰</span>
 
 </div>
 
@@ -146,14 +172,16 @@ Real-Time Cyber Threat Detection Platform
 
 </div>
 
-<div class="container">
+<!-- INFORMATION -->
 
-<div class="description">
+<div class="info-box">
 
 Cyber attacks such as brute force login attempts and phishing websites are becoming increasingly common.
 This system detects suspicious login activity, identifies phishing links, and records attacker IP addresses
-along with their geographic location. The platform provides a dashboard for monitoring cyber threats
-and helps administrators analyze security incidents in real time.
+along with their geographic location.
+
+The platform provides an administrative dashboard that helps security teams monitor login attempts,
+detect cyber attacks, and analyze attacker behavior in real time.
 
 </div>
 
@@ -163,50 +191,21 @@ and helps administrators analyze security incidents in real time.
 
 <h2>Key Features</h2>
 
-<div class="card-container">
+<div class="cards">
 
 <div class="card">
 <h3>Brute Force Detection</h3>
-<p>Detects repeated login failures and identifies possible brute force attacks.</p>
+<p>Detects repeated login failures and possible hacking attempts.</p>
 </div>
 
 <div class="card">
 <h3>Phishing Detection</h3>
-<p>Analyzes suspicious URLs and identifies phishing websites.</p>
+<p>Analyzes URLs and identifies suspicious phishing websites.</p>
 </div>
 
 <div class="card">
 <h3>Threat Monitoring</h3>
-<p>Displays login attempts, attack detection, and attacker IP logs.</p>
-</div>
-
-</div>
-
-</div>
-
-<!-- USE CASES -->
-
-<div class="section">
-
-<h2>Where It Can Be Used</h2>
-
-<div class="card-container">
-
-<div class="card">
-<h3>Companies</h3>
-<p>Protect company websites from brute force login attacks.</p>
-</div>
-
-<div class="card">
-<h3>Government Portals</h3>
-<p>Monitor suspicious login activity on public service websites.</p>
-</div>
-
-<div class="card">
-<h3>Cyber Security Teams</h3>
-<p>Analyze attacker IP addresses and monitor cyber threats.</p>
-</div>
-
+<p>Displays login attempts and attacker IP logs.</p>
 </div>
 
 </div>

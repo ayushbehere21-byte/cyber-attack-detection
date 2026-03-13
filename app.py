@@ -29,7 +29,14 @@ def read_logs():
         return "No attacker IP detected yet"
 
 
-@app.route('/', methods=['GET','POST'])
+# HOME PAGE
+@app.route('/')
+def home():
+    return render_template("home.html")
+
+
+# LOGIN ATTACK TEST
+@app.route('/login', methods=['GET','POST'])
 def login():
 
     global attacks
@@ -79,16 +86,10 @@ def login():
         else:
             message = f"Wrong Password (Attempt {attempts[ip]}/3)"
 
-    return render_template(
-        "dashboard.html",
-        attempts=total_attempts,
-        attacks=attacks,
-        phishing=phishing_checks,
-        ip_logs=read_logs(),
-        message=message
-    )
+    return render_template("login.html", message=message)
 
 
+# PHISHING SCANNER
 @app.route('/phishing', methods=['GET','POST'])
 def phishing():
 
@@ -111,16 +112,10 @@ def phishing():
         else:
             result = "✅ Safe Website"
 
-    return render_template(
-        "dashboard.html",
-        attempts=total_attempts,
-        attacks=attacks,
-        phishing=phishing_checks,
-        ip_logs=read_logs(),
-        result=result
-    )
+    return render_template("phishing.html", result=result)
 
 
+# DASHBOARD
 @app.route('/dashboard')
 def dashboard():
 
@@ -131,3 +126,7 @@ def dashboard():
         phishing=phishing_checks,
         ip_logs=read_logs()
     )
+
+
+if __name__ == "__main__":
+    app.run(debug=True)

@@ -13,44 +13,57 @@ color:white;
 margin:0;
 }
 
-/* HEADER */
+/* NAVBAR */
 
-.header{
-text-align:center;
-padding:30px;
-font-size:32px;
-font-weight:bold;
+.navbar{
+display:flex;
+justify-content:space-between;
+align-items:center;
+padding:15px 40px;
+background:#020617;
 border-bottom:1px solid #1e293b;
 }
 
-/* NAVIGATION */
-
-.nav{
-text-align:center;
-margin-top:10px;
+.logo{
+font-size:22px;
+font-weight:bold;
+color:#38bdf8;
 }
 
-.nav a{
-color:#38bdf8;
-margin:10px;
+.nav-links a{
+margin-left:25px;
+color:white;
 text-decoration:none;
 font-size:16px;
 }
 
-/* TAGLINE */
-
-.tagline{
-text-align:center;
-color:#94a3b8;
-margin-top:10px;
+.nav-links a:hover{
+color:#38bdf8;
 }
 
-/* MAIN CONTAINER */
+/* HERO SECTION */
+
+.hero{
+text-align:center;
+padding:80px 20px 40px 20px;
+}
+
+.hero h1{
+font-size:40px;
+}
+
+.tagline{
+color:#94a3b8;
+margin-top:10px;
+font-size:18px;
+}
+
+/* CONTAINER */
 
 .container{
 width:70%;
 margin:auto;
-margin-top:40px;
+margin-top:30px;
 text-align:center;
 }
 
@@ -60,16 +73,13 @@ text-align:center;
 font-size:18px;
 line-height:1.7;
 color:#cbd5f5;
-margin-top:20px;
-}
-
-/* FEATURES */
-
-.features{
-margin-top:60px;
 }
 
 /* CARDS */
+
+.section{
+margin-top:60px;
+}
 
 .card-container{
 display:flex;
@@ -82,7 +92,7 @@ flex-wrap:wrap;
 .card{
 background:#0f172a;
 padding:25px;
-width:250px;
+width:260px;
 border-radius:10px;
 box-shadow:0 0 15px rgba(0,0,0,0.6);
 }
@@ -91,35 +101,13 @@ box-shadow:0 0 15px rgba(0,0,0,0.6);
 color:#38bdf8;
 }
 
-/* BUTTONS */
-
-.buttons{
-margin-top:50px;
-}
-
-button{
-padding:12px 25px;
-margin:10px;
-font-size:16px;
-border:none;
-border-radius:8px;
-background:#38bdf8;
-color:black;
-font-weight:bold;
-cursor:pointer;
-}
-
-button:hover{
-background:#0ea5e9;
-}
-
 /* FOOTER */
 
 .footer{
 text-align:center;
 margin-top:80px;
-font-size:14px;
 color:#94a3b8;
+font-size:14px;
 padding-bottom:20px;
 }
 
@@ -129,20 +117,34 @@ padding-bottom:20px;
 
 <body>
 
-<div class="header">
-AI Cyber Attack Detection & Monitoring System
+<!-- NAVBAR -->
+
+<div class="navbar">
+
+<div class="logo">
+Cyber Attack Detection
 </div>
 
-<div class="nav">
+<div class="nav-links">
 <a href="/">Home</a>
 <a href="/login">Login Test</a>
 <a href="/phishing">Phishing Scanner</a>
 <a href="/admin">Admin Dashboard</a>
 </div>
 
+</div>
+
+<!-- HERO -->
+
+<div class="hero">
+
+<h1>AI Cyber Attack Detection & Monitoring System</h1>
+
 <p class="tagline">
 Real-Time Cyber Threat Detection Platform
 </p>
+
+</div>
 
 <div class="container">
 
@@ -151,13 +153,13 @@ Real-Time Cyber Threat Detection Platform
 Cyber attacks such as brute force login attempts and phishing websites are becoming increasingly common.
 This system detects suspicious login activity, identifies phishing links, and records attacker IP addresses
 along with their geographic location. The platform provides a dashboard for monitoring cyber threats
-and helps administrators understand and analyze security incidents in real time.
+and helps administrators analyze security incidents in real time.
 
 </div>
 
 <!-- FEATURES -->
 
-<div class="features">
+<div class="section">
 
 <h2>Key Features</h2>
 
@@ -184,7 +186,7 @@ and helps administrators understand and analyze security incidents in real time.
 
 <!-- USE CASES -->
 
-<div class="features">
+<div class="section">
 
 <h2>Where It Can Be Used</h2>
 
@@ -202,22 +204,10 @@ and helps administrators understand and analyze security incidents in real time.
 
 <div class="card">
 <h3>Cyber Security Teams</h3>
-<p>Analyze attacker IP addresses and monitor cyber threat activity.</p>
+<p>Analyze attacker IP addresses and monitor cyber threats.</p>
 </div>
 
 </div>
-
-</div>
-
-<!-- BUTTONS -->
-
-<div class="buttons">
-
-<a href="/login"><button>Login Attack Test</button></a>
-
-<a href="/phishing"><button>Phishing Scanner</button></a>
-
-<a href="/admin"><button>Admin Dashboard</button></a>
 
 </div>
 

@@ -21,6 +21,14 @@ def get_location(ip):
         return "Unknown Location"
 
 
+def read_logs():
+    try:
+        with open("attack_log.txt","r") as file:
+            return file.read()
+    except:
+        return "No attacker IP detected yet"
+
+
 @app.route('/', methods=['GET','POST'])
 def login():
 
@@ -44,25 +52,18 @@ def login():
         if username == "admin" and password == "1234":
             attempts[ip] = 0
 
-            try:
-                with open("attack_log.txt","r") as file:
-                    ip_logs = file.read()
-            except:
-                ip_logs = "No attack logs yet"
-
             return render_template(
                 "dashboard.html",
                 attempts=total_attempts,
                 attacks=attacks,
                 phishing=phishing_checks,
-                ip_logs=ip_logs
+                ip_logs=read_logs()
             )
 
         # Wrong login
         attempts[ip] += 1
         total_attempts += 1
 
-        # detect location
         location = get_location(ip)
 
         try:
@@ -78,20 +79,14 @@ def login():
         else:
             message = f"Wrong Password (Attempt {attempts[ip]}/3)"
 
-try:
-    with open("attack_log.txt","r") as file:
-        ip_logs = file.read()
-except:
-    ip_logs = "No attacker IP detected yet"
-
-return render_template(
-"dashboard.html",
-attempts=total_attempts,
-attacks=attacks,
-phishing=phishing_checks,
-ip_logs=ip_logs,
-message=message
-)
+    return render_template(
+        "dashboard.html",
+        attempts=total_attempts,
+        attacks=attacks,
+        phishing=phishing_checks,
+        ip_logs=read_logs(),
+        message=message
+    )
 
 
 @app.route('/phishing', methods=['GET','POST'])
@@ -117,32 +112,22 @@ def phishing():
             result = "✅ Safe Website"
 
     return render_template(
-    "dashboard.html",
-    attempts=total_attempts,
-    attacks=attacks,
-    phishing=phishing_checks,
-    try:
-    with open("attack_log.txt","r") as file:
-        ip_logs = file.read()
-except:
-    ip_logs = "No attacker IP detected yet"
-    result=result
-)
+        "dashboard.html",
+        attempts=total_attempts,
+        attacks=attacks,
+        phishing=phishing_checks,
+        ip_logs=read_logs(),
+        result=result
+    )
 
 
 @app.route('/dashboard')
 def dashboard():
-
-    try:
-        with open("attack_log.txt","r") as file:
-            ip_logs = file.read()
-    except:
-        ip_logs = "No attack logs yet"
 
     return render_template(
         "dashboard.html",
         attempts=total_attempts,
         attacks=attacks,
         phishing=phishing_checks,
-        ip_logs=ip_logs
+        ip_logs=read_logs()
     )

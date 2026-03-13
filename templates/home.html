@@ -144,6 +144,21 @@ font-size:22px;
 color:#22c55e;
 }
 
+/* SCROLL INDICATOR */
+
+.scroll-indicator{
+margin-top:40px;
+font-size:16px;
+color:#94a3b8;
+animation: scrollAnim 1.5s infinite;
+}
+
+@keyframes scrollAnim{
+0%{transform:translateY(0);}
+50%{transform:translateY(10px);}
+100%{transform:translateY(0);}
+}
+
 /* INFO BOX */
 
 .info-box{
@@ -333,6 +348,10 @@ AI Cyber Attack Detection System
 
 <div id="counter" class="counter">
 Live Cyber Attacks Detected Today: 0
+</div>
+
+<div class="scroll-indicator">
+↓ Scroll to explore
 </div>
 
 </div>

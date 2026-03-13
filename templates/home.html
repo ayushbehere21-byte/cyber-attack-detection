@@ -2,15 +2,15 @@
 <html>
 <head>
 
-<title>Cyber Attack Detection</title>
+<title>AI Cyber Attack Detection System</title>
 
 <style>
 
 body{
-font-family:Arial;
-background:linear-gradient(180deg,#020617,#020617,#0f172a);
-color:white;
 margin:0;
+font-family:Arial;
+background:#020617;
+color:white;
 }
 
 /* TOP BAR */
@@ -62,38 +62,30 @@ font-size:18px;
 background:#1e293b;
 }
 
-/* HERO */
+/* HERO SECTION */
 
 .hero{
-text-align:center;
-padding:120px 20px;
-background-image:url("https://images.unsplash.com/photo-1550751827-4bd374c3f58b");
+height:100vh;
+background-image:url("/static/images/cyber.jpg");
 background-size:cover;
 background-position:center;
-position:relative;
-}
-
-.hero::before{
-content:"";
-position:absolute;
-top:0;
-left:0;
-width:100%;
-height:100%;
-background:rgba(2,6,23,0.75);
+background-repeat:no-repeat;
+display:flex;
+flex-direction:column;
+justify-content:center;
+align-items:center;
+text-align:center;
+padding:20px;
 }
 
 .hero h1{
-font-size:38px;
-position:relative;
-z-index:1;
+font-size:42px;
+margin-bottom:10px;
 }
 
-.tagline{
-position:relative;
-z-index:1;
-color:#94a3b8;
-font-size:18px;
+.hero p{
+font-size:20px;
+color:#cbd5f5;
 }
 
 /* INFO BOX */
@@ -104,13 +96,13 @@ margin:auto;
 background:#0f172a;
 padding:30px;
 border-radius:10px;
-margin-top:-40px;
+margin-top:60px;
 box-shadow:0 0 20px rgba(0,0,0,0.6);
 color:#cbd5f5;
 line-height:1.6;
 }
 
-/* SECTIONS */
+/* SECTION */
 
 .section{
 margin-top:70px;
@@ -131,11 +123,6 @@ width:260px;
 padding:25px;
 border-radius:10px;
 box-shadow:0 0 15px rgba(0,0,0,0.6);
-}
-
-.card img{
-width:40px;
-margin-bottom:10px;
 }
 
 .card h3{
@@ -183,7 +170,7 @@ document.getElementById("menu").style.width="0";
 
 </div>
 
-<!-- TOP BAR -->
+<!-- TOPBAR -->
 
 <div class="topbar">
 
@@ -201,9 +188,7 @@ AI Cyber Attack Detection System
 
 <h1>AI Cyber Attack Detection & Monitoring System</h1>
 
-<p class="tagline">
-Real-Time Cyber Threat Detection Platform
-</p>
+<p>Real-Time Cyber Threat Detection Platform</p>
 
 </div>
 
@@ -229,30 +214,18 @@ detect cyber attacks, and analyze attacker behavior in real time.
 <div class="cards">
 
 <div class="card">
-
-<img src="https://img.icons8.com/fluency/48/security-checked.png">
-
 <h3>Brute Force Detection</h3>
 <p>Detects repeated login failures and possible hacking attempts.</p>
-
 </div>
 
 <div class="card">
-
-<img src="https://img.icons8.com/fluency/48/phishing.png">
-
 <h3>Phishing Detection</h3>
 <p>Analyzes URLs and identifies suspicious phishing websites.</p>
-
 </div>
 
 <div class="card">
-
-<img src="https://img.icons8.com/fluency/48/combo-chart.png">
-
 <h3>Threat Monitoring</h3>
 <p>Displays login attempts and attacker IP logs.</p>
-
 </div>
 
 </div>

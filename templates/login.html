@@ -1,19 +1,170 @@
-<h2>Secure Login System</h2>
+<!DOCTYPE html>
+<html>
+<head>
+
+<title>Login Attack Test</title>
+
+<style>
+
+body{
+margin:0;
+font-family:Arial;
+background:#020617;
+color:white;
+}
+
+/* TOPBAR */
+
+.topbar{
+display:flex;
+align-items:center;
+padding:15px 25px;
+background:#020617;
+border-bottom:1px solid #1e293b;
+}
+
+.menu-icon{
+font-size:26px;
+cursor:pointer;
+}
+
+.title{
+margin-left:20px;
+font-size:20px;
+font-weight:bold;
+color:#38bdf8;
+}
+
+/* SIDEBAR */
+
+.sidebar{
+height:100%;
+width:0;
+position:fixed;
+top:0;
+left:0;
+background:#0f172a;
+overflow-x:hidden;
+transition:0.3s;
+padding-top:60px;
+}
+
+.sidebar a{
+padding:12px 30px;
+display:block;
+color:white;
+text-decoration:none;
+font-size:18px;
+}
+
+.sidebar a:hover{
+background:#1e293b;
+}
+
+/* FORM */
+
+.container{
+text-align:center;
+margin-top:100px;
+}
+
+form{
+background:#0f172a;
+display:inline-block;
+padding:30px;
+border-radius:10px;
+box-shadow:0 0 15px rgba(0,0,0,0.6);
+}
+
+input{
+padding:10px;
+margin:10px;
+width:220px;
+border:none;
+border-radius:6px;
+}
+
+button{
+padding:10px 20px;
+border:none;
+border-radius:6px;
+background:#38bdf8;
+color:black;
+font-weight:bold;
+cursor:pointer;
+}
+
+button:hover{
+background:#0ea5e9;
+}
+
+.message{
+margin-top:15px;
+color:#ef4444;
+}
+
+</style>
+
+<script>
+
+function openMenu(){
+document.getElementById("menu").style.width="250px";
+}
+
+function closeMenu(){
+document.getElementById("menu").style.width="0";
+}
+
+</script>
+
+</head>
+
+<body>
+
+<div id="menu" class="sidebar">
+
+<a href="javascript:void(0)" onclick="closeMenu()">✖ Close</a>
+
+<a href="/">Home</a>
+<a href="/login">Login Attack Test</a>
+<a href="/phishing">Phishing Scanner</a>
+<a href="/admin">Admin Dashboard</a>
+
+</div>
+
+<div class="topbar">
+
+<span class="menu-icon" onclick="openMenu()">☰</span>
+
+<span class="title">
+AI Cyber Attack Detection System
+</span>
+
+</div>
+
+<div class="container">
+
+<h2>Login Attack Test</h2>
 
 <form method="POST">
 
-Username:<br>
-<input type="text" name="username"><br><br>
+<div>
+<input type="text" name="username" placeholder="Username">
+</div>
 
-Password:<br>
-<input type="password" name="password"><br><br>
+<div>
+<input type="password" name="password" placeholder="Password">
+</div>
 
-<input type="submit" value="Login">
+<button type="submit">Login</button>
 
 </form>
 
-{% if message %}
-<p style="color:red; font-weight:bold; margin-top:10px;">
+<div class="message">
 {{ message }}
-</p>
-{% endif %}
+</div>
+
+</div>
+
+</body>
+</html>

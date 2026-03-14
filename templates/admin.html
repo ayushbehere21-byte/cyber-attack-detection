@@ -7,104 +7,153 @@
 <style>
 
 body{
+margin:0;
 font-family:Arial;
 background:#020617;
 color:white;
-margin:0;
-text-align:center;
 }
 
-/* HEADER */
+/* TOPBAR */
 
-.header{
-padding:30px;
-font-size:28px;
-font-weight:bold;
+.topbar{
+display:flex;
+align-items:center;
+padding:15px 25px;
+background:#020617;
 border-bottom:1px solid #1e293b;
+}
+
+.menu-icon{
+font-size:26px;
+cursor:pointer;
+}
+
+.title{
+margin-left:20px;
+font-size:20px;
+font-weight:bold;
 color:#38bdf8;
 }
 
-/* CONTAINER */
+/* SIDEBAR */
 
-.container{
-margin-top:80px;
+.sidebar{
+height:100%;
+width:0;
+position:fixed;
+top:0;
+left:0;
+background:#0f172a;
+overflow-x:hidden;
+transition:0.3s;
+padding-top:60px;
 }
 
-/* LOGIN FORM */
+.sidebar a{
+padding:12px 30px;
+display:block;
+color:white;
+text-decoration:none;
+font-size:18px;
+}
+
+.sidebar a:hover{
+background:#1e293b;
+}
+
+/* LOGIN BOX */
+
+.container{
+text-align:center;
+margin-top:120px;
+}
 
 form{
 background:#0f172a;
 display:inline-block;
-padding:35px;
+padding:30px;
 border-radius:10px;
-box-shadow:0 0 20px rgba(0,0,0,0.6);
+box-shadow:0 0 15px rgba(0,0,0,0.6);
 }
-
-/* INPUT */
 
 input{
-padding:12px;
-margin:12px;
-width:240px;
+padding:10px;
+margin:10px;
+width:220px;
 border:none;
 border-radius:6px;
-outline:none;
 }
 
-/* BUTTON */
-
 button{
-padding:12px 25px;
+padding:10px 20px;
 border:none;
 border-radius:6px;
 background:#38bdf8;
 color:black;
 font-weight:bold;
 cursor:pointer;
-transition:0.3s;
 }
 
 button:hover{
 background:#0ea5e9;
-transform:scale(1.05);
 }
-
-/* MESSAGE */
 
 .message{
-color:#ef4444;
 margin-top:15px;
-font-size:16px;
-}
-
-/* FOOTER */
-
-.footer{
-margin-top:80px;
-font-size:14px;
-color:#94a3b8;
+color:#ef4444;
 }
 
 </style>
+
+<script>
+
+function openMenu(){
+document.getElementById("menu").style.width="250px";
+}
+
+function closeMenu(){
+document.getElementById("menu").style.width="0";
+}
+
+</script>
 
 </head>
 
 <body>
 
-<div class="header">
-Admin Dashboard Login
+<div id="menu" class="sidebar">
+
+<a href="javascript:void(0)" onclick="closeMenu()">✖ Close</a>
+
+<a href="/">Home</a>
+<a href="/login">Login Attack Test</a>
+<a href="/phishing">Phishing Scanner</a>
+<a href="/admin">Admin Dashboard</a>
+
+</div>
+
+<div class="topbar">
+
+<span class="menu-icon" onclick="openMenu()">☰</span>
+
+<span class="title">
+AI Cyber Attack Detection System
+</span>
+
 </div>
 
 <div class="container">
 
+<h2>Admin Dashboard Login</h2>
+
 <form method="POST">
 
 <div>
-<input type="text" name="username" placeholder="Admin Username" required>
+<input type="text" name="username" placeholder="Admin Username">
 </div>
 
 <div>
-<input type="password" name="password" placeholder="Admin Password" required>
+<input type="password" name="password" placeholder="Admin Password">
 </div>
 
 <button type="submit">Login</button>
@@ -115,10 +164,6 @@ Admin Dashboard Login
 {{ message }}
 </div>
 
-</div>
-
-<div class="footer">
-Cyber Security Monitoring System
 </div>
 
 </body>

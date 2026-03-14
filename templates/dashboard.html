@@ -15,6 +15,54 @@ color:white;
 margin:0;
 }
 
+/* TOPBAR */
+
+.topbar{
+display:flex;
+align-items:center;
+padding:15px 25px;
+background:#020617;
+border-bottom:1px solid #1e293b;
+}
+
+.menu-icon{
+font-size:26px;
+cursor:pointer;
+}
+
+.title{
+margin-left:20px;
+font-size:20px;
+font-weight:bold;
+color:#38bdf8;
+}
+
+/* SIDEBAR */
+
+.sidebar{
+height:100%;
+width:0;
+position:fixed;
+top:0;
+left:0;
+background:#0f172a;
+overflow-x:hidden;
+transition:0.3s;
+padding-top:60px;
+}
+
+.sidebar a{
+padding:12px 30px;
+display:block;
+color:white;
+text-decoration:none;
+font-size:18px;
+}
+
+.sidebar a:hover{
+background:#1e293b;
+}
+
 /* HEADER */
 
 .header{
@@ -111,9 +159,48 @@ padding-bottom:20px;
 
 </style>
 
+<script>
+
+function openMenu(){
+document.getElementById("menu").style.width="250px";
+}
+
+function closeMenu(){
+document.getElementById("menu").style.width="0";
+}
+
+</script>
+
 </head>
 
 <body>
+
+<!-- SIDEBAR -->
+
+<div id="menu" class="sidebar">
+
+<a href="javascript:void(0)" onclick="closeMenu()">✖ Close</a>
+
+<a href="/">Home</a>
+<a href="/login">Login Attack Test</a>
+<a href="/phishing">Phishing Scanner</a>
+<a href="/admin">Admin Dashboard</a>
+
+</div>
+
+<!-- TOPBAR -->
+
+<div class="topbar">
+
+<span class="menu-icon" onclick="openMenu()">☰</span>
+
+<span class="title">
+AI Cyber Attack Detection System
+</span>
+
+</div>
+
+<!-- HEADER -->
 
 <div class="header">
 Cyber Threat Monitoring Dashboard

@@ -114,6 +114,30 @@ def phishing():
 
     return render_template("phishing.html", result=result)
 
+@app.route('/admin', methods=['GET','POST'])
+def admin():
+
+    message=""
+
+    if request.method=="POST":
+
+        username=request.form.get("username")
+        password=request.form.get("password")
+
+        if username=="admin" and password=="1234":
+
+            return render_template(
+                "dashboard.html",
+                attempts=total_attempts,
+                attacks=attacks,
+                phishing=phishing_checks,
+                ip_logs=read_logs()
+            )
+
+        else:
+            message="Invalid Admin Credentials"
+
+    return render_template("admin.html", message=message)
 
 # DASHBOARD (Admin साठी)
 @app.route('/dashboard')

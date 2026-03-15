@@ -61,7 +61,7 @@ def login():
             attempts[ip] = 0
 
         # Correct login (dashboard open होणार नाही)
-        if username == "admin" and password == "1234":
+        if username == "admin" and password == "ayush21@":
             attempts[ip] = 0
             message = "Login Successful"
 
